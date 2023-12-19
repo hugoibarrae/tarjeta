@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descargar VCard</title>
+</head>
+<body>
+ 
+    <h1>Mi Tarjeta de Contacto</h1>
+ 
+    <!-- Enlace para descargar la VCard -->
+<a href="#" id="descargarVCard">Descargar VCard</a>
+ 
+    <script>
+        // Función para generar y descargar la VCard
+        function descargarVCard() {
+            // Datos de la VCard
+            var vcardData = `
+BEGIN:VCARD
+VERSION:3.0
+FN:Tu Nombre
+ORG:Tu Empresa
+TEL:123456789
+EMAIL:tu@email.com
+END:VCARD
+`;
+ 
+            // Crear un objeto Blob con la información de la VCard
+            var blob = new Blob([vcardData], { type: 'text/vcard' });
+ 
+            // Crear un enlace de descarga
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'mi_tarjeta.vcf';
+ 
+            // Simular un clic en el enlace para iniciar la descarga
+            link.click();
+        }
+ 
+        // Agregar un evento de clic al enlace
+        document.getElementById('descargarVCard').addEventListener('click', descargarVCard);
+</script>
+ 
+</body>
+</html>
