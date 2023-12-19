@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Tarjeta de Presentación</title>
+    <title>Mi Tarjeta de Presentación con Código QR</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,24 +12,17 @@
         }
 
         h1 {
-            color: #933;
+            color: #339;
         }
 
-        #descargarVCard {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-decoration: none;
-            background-color: #4CAF50;
-            color: #fff;
-            border-radius: 5px;
+        #codigoQR {
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Mi Tarjeta de Presentación</h1>
+    <h1>Mi Tarjeta de Presentación con Código QR</h1>
 
     <p>¡Hola! Soy [Tu Nombre], de [Tu Empresa]. Puedes contactarme a través de los siguientes medios:</p>
 
@@ -45,12 +39,12 @@
         <!-- Agrega más enlaces según tus perfiles en otras redes sociales -->
     </ul>
 
-    <!-- Enlace para descargar la VCard -->
-    <a href="#" id="descargarVCard" onclick="mostrarInstrucciones()">Descargar VCard</a>
+    <!-- Código QR -->
+    <div id="codigoQR"></div>
 
     <script>
-        function descargarVCard() {
-            var vcardData = `
+        // Datos de la VCard
+        var vcardData = `
 BEGIN:VCARD
 VERSION:3.0
 FN:Tu Nombre
@@ -61,19 +55,11 @@ URL:http://www.tu-sitio-web.com
 END:VCARD
 `;
 
-            var blob = new Blob([vcardData], { type: 'text/vcard' });
-
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = 'mi_tarjeta.vcf';
-
-            link.click();
-        }
-
-        function mostrarInstrucciones() {
-            alert("Haga clic en el enlace para descargar la tarjeta de contacto y luego ábrala con la aplicación de Contactos.");
-            descargarVCard();
-        }
+        // Crear código QR con la biblioteca qrious
+        var qr = new QRious({
+            element: document.getElementById('codigoQR'),
+            value: 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcardData)
+        });
     </script>
 
 </body>
